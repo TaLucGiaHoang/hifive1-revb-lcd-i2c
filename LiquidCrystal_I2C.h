@@ -4,10 +4,6 @@
 #include <stdbool.h> // bool type
 #include <stdlib.h> // size_t type
 #include <metal/i2c.h>
-//#include <Print.h>
-
-typedef unsigned char uint8_t;
-//typedef unsigned int uint32_t;
 
 // commands
 #define LCD_CLEARDISPLAY 0x01
@@ -72,7 +68,7 @@ typedef unsigned char uint8_t;
  * @param lcd_rows	Number of rows your LCD display has.
  * @param charsize	The size in dots that the display has, use LCD_5x10DOTS or LCD_5x8DOTS.
  */
-void LiquidCrystal_I2C_init(struct metal_i2c *i2c, uint8_t lcd_addr, uint8_t lcd_cols, uint8_t lcd_rows, uint8_t charsize);// /*= LCD_5x8DOTS*/);
+void LiquidCrystal_I2C_init(struct metal_i2c *i2c, unsigned char lcd_addr, unsigned char lcd_cols, unsigned char lcd_rows, unsigned char charsize);// /*= LCD_5x8DOTS*/);
 
 /**
  * Set the LCD display in the correct begin state, must be called before anything else is done.
@@ -136,10 +132,10 @@ void LiquidCrystal_I2C_backlight();
 bool LiquidCrystal_I2C_getBacklight();
 void LiquidCrystal_I2C_autoscroll();
 void LiquidCrystal_I2C_noAutoscroll();
-void LiquidCrystal_I2C_createChar(uint8_t, uint8_t[]);
-void LiquidCrystal_I2C_setCursor(uint8_t, uint8_t);
-size_t LiquidCrystal_I2C_write(uint8_t);
-void LiquidCrystal_I2C_command(uint8_t);
+void LiquidCrystal_I2C_createChar(unsigned char, unsigned char[]);
+void LiquidCrystal_I2C_setCursor(unsigned char, unsigned char);
+size_t LiquidCrystal_I2C_write(unsigned char);
+void LiquidCrystal_I2C_command(unsigned char);
 
 inline void LiquidCrystal_I2C_blink_on() { LiquidCrystal_I2C_blink(); }
 inline void LiquidCrystal_I2C_blink_off() { LiquidCrystal_I2C_noBlink(); }
@@ -147,8 +143,8 @@ inline void LiquidCrystal_I2C_cursor_on() { LiquidCrystal_I2C_cursor(); }
 inline void LiquidCrystal_I2C_cursor_off() { LiquidCrystal_I2C_noCursor(); }
 
 // Compatibility API function aliases
-void LiquidCrystal_I2C_setBacklight(uint8_t new_val);				// alias for backlight() and nobacklight()
-void LiquidCrystal_I2C_load_custom_character(uint8_t char_num, uint8_t *rows);	// alias for createChar()
+void LiquidCrystal_I2C_setBacklight(unsigned char new_val);				// alias for backlight() and nobacklight()
+void LiquidCrystal_I2C_load_custom_character(unsigned char char_num, unsigned char *rows);	// alias for createChar()
 void LiquidCrystal_I2C_print(const char *);
 void LiquidCrystal_I2C_printstr(const char *, int);
 

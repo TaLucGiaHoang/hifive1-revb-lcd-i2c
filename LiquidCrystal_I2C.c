@@ -29,24 +29,24 @@
 //
 // Private variables and functions
 //
-static void send(uint8_t, uint8_t);
-static void write4bits(uint8_t);
-static void expanderWrite(uint8_t);
-static void pulseEnable(uint8_t);
-static uint8_t _addr;
-static uint8_t _displayfunction;
-static uint8_t _displaycontrol;
-static uint8_t _displaymode;
-static uint8_t _cols;
-static uint8_t _rows;
-static uint8_t _charsize;
-static uint8_t _backlightval;
+static void send(unsigned char, unsigned char);
+static void write4bits(unsigned char);
+static void expanderWrite(unsigned char);
+static void pulseEnable(unsigned char);
+static unsigned char _addr;
+static unsigned char _displayfunction;
+static unsigned char _displaycontrol;
+static unsigned char _displaymode;
+static unsigned char _cols;
+static unsigned char _rows;
+static unsigned char _charsize;
+static unsigned char _backlightval;
 static struct metal_i2c *_i2c;
 
 extern void delayMicroseconds(int microseconds);
 extern void delay(uint32_t miliseconds);
 
-void LiquidCrystal_I2C_init(struct metal_i2c *i2c, uint8_t lcd_addr, uint8_t lcd_cols, uint8_t lcd_rows, uint8_t charsize)
+void LiquidCrystal_I2C_init(struct metal_i2c *i2c, unsigned char lcd_addr, unsigned char lcd_cols, unsigned char lcd_rows, unsigned char charsize)
 {
 	_i2c = i2c;
 	_addr = lcd_addr;
@@ -133,7 +133,7 @@ void LiquidCrystal_I2C_home(){
 	delayMicroseconds(2000);  // this command takes a long time!
 }
 
-void LiquidCrystal_I2C_setCursor(uint8_t col, uint8_t row){
+void LiquidCrystal_I2C_setCursor(unsigned char col, unsigned char row){
 	int row_offsets[] = { 0x00, 0x40, 0x14, 0x54 };
 	if (row > _rows) {
 		row = _rows-1;    // we count rows starting w/0
@@ -205,7 +205,7 @@ void LiquidCrystal_I2C_noAutoscroll(void) {
 
 // Allows us to fill the first 8 CGRAM locations
 // with custom characters
-void LiquidCrystal_I2C_createChar(uint8_t location, uint8_t charmap[]) {
+void LiquidCrystal_I2C_createChar(unsigned char location, unsigned char charmap[]) {
 	location &= 0x7; // we only have 8 locations 0-7
 	LiquidCrystal_I2C_command(LCD_SETCGRAMADDR | (location << 3));
 	for (int i=0; i<8; i++) {
@@ -230,11 +230,11 @@ bool LiquidCrystal_I2C_getBacklight() {
 
 /*********** mid level commands, for sending data/cmds */
 
-inline void LiquidCrystal_I2C_command(uint8_t value) {
+inline void LiquidCrystal_I2C_command(unsigned char value) {
 	send(value, 0);
 }
 
-inline size_t LiquidCrystal_I2C_write(uint8_t value) {
+inline size_t LiquidCrystal_I2C_write(unsigned char value) {
 	send(value, Rs);
 	return 1;
 }
@@ -243,24 +243,24 @@ inline size_t LiquidCrystal_I2C_write(uint8_t value) {
 /************ low level data pushing commands **********/
 
 // write either command or data
-static void send(uint8_t value, uint8_t mode) {
-	uint8_t highnib=value&0xf0;
-	uint8_t lownib=(value<<4)&0xf0;
+static void send(unsigned char value, unsigned char mode) {
+	unsigned char highnib=value&0xf0;
+	unsigned char lownib=(value<<4)&0xf0;
 	write4bits((highnib)|mode);
 	write4bits((lownib)|mode);
 }
 
-static void write4bits(uint8_t value) {
+static void write4bits(unsigned char value) {
 	expanderWrite(value);
 	pulseEnable(value);
 }
 
-static void expanderWrite(uint8_t _data){
+static void expanderWrite(unsigned char _data){
 	_data |= _backlightval;
 	metal_i2c_write(_i2c, (unsigned int)_addr, 1, &_data, METAL_I2C_STOP_ENABLE);
 }
 
-static void pulseEnable(uint8_t _data){
+static void pulseEnable(unsigned char _data){
 	expanderWrite(_data | En);	// En high
 	delayMicroseconds(1);		// enable pulse must be >450ns
 
@@ -268,11 +268,11 @@ static void pulseEnable(uint8_t _data){
 	delayMicroseconds(50);		// commands need > 37us to settle
 }
 
-void LiquidCrystal_I2C_load_custom_character(uint8_t char_num, uint8_t *rows){
+void LiquidCrystal_I2C_load_custom_character(unsigned char char_num, unsigned char *rows){
 	LiquidCrystal_I2C_createChar(char_num, rows);
 }
 
-void LiquidCrystal_I2C_setBacklight(uint8_t new_val){
+void LiquidCrystal_I2C_setBacklight(unsigned char new_val){
 	if (new_val) {
 		LiquidCrystal_I2C_backlight();		// turn backlight on
 	} else {
