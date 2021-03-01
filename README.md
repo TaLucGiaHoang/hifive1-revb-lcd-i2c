@@ -10,11 +10,11 @@ This is a library used for SiFive Hifive 1 Rev B board to communicate with Lyqui
 - LCD1602 with I2C module
 
 # Wire Connections
-    **HiFive1 Rev B**    **LCD I2C module**
-    IO19 (SCL) <--> SCL
-    IO18 (SDA) <--> SDA
-    5.0 V      <--> VCC
-    GND        <--> GND
+    HiFive1 Rev B      LCD I2C module
+    IO19 (SCL)    <--> SCL
+    IO18 (SDA)    <--> SDA
+    5.0 V         <--> VCC
+    GND           <--> GND
 
 ![HiFive1 Rev B and LCD I2C connection](hifive1-revb-and-lcd-i2c-connection.jpg)
 
