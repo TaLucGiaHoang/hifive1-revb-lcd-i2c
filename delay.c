@@ -2,7 +2,7 @@
  * delay.c
  *
  *  Created on: Jan 15, 2021
- *      Author: win10
+ *      Author: Hoang Ta
  */
 #include <stdint.h>
 

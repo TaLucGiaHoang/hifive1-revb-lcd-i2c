@@ -20,7 +20,6 @@ This is a library used for SiFive Hifive 1 Rev B board to communicate with Lyqui
 
 # Development tools
 - SiFive IDE: FreedomStudio-4.7.2.2020-11-2-x86_64-w64-mingw32 (https://github.com/sifive/freedom-studio/releases/tag/v2020.11.1)
-- Arduino IDE: arduino (https://www.arduino.cc/en/software)
 
 # Documents
 - I2C-Master Core Specification - [i2c_specs.pdf](https://github.com/olofk/i2c/blob/master/doc/i2c_specs.pdf)

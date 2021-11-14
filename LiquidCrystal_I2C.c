@@ -1,3 +1,9 @@
+/*
+ * LiquidCrystal_I2C.c
+ *
+ *  Created on: Jan 15, 2021
+ *      Author: Hoang Ta
+ */
 #include "LiquidCrystal_I2C.h"
 #include <inttypes.h>
 
